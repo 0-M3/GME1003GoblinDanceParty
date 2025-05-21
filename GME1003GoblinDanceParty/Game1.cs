@@ -19,7 +19,7 @@ namespace GME1003GoblinDanceParty
         private List<float> _starsR;    //list of star rotation values
         private List<float> _starsT;    //list of star transparency values
         private List<float> _starsS;    //list of star scale values
-
+        private List<Color> _starsC;    //list of star colors
 
         private Texture2D _starSprite;  //the sprite image for our star
 
@@ -51,6 +51,7 @@ namespace GME1003GoblinDanceParty
             _starsR = new List<float>();   //stars rotation
             _starsT = new List<float>();   //stars transparency
             _starsS = new List<float>();   //stars scale
+            _starsC = new List<Color>();   //stars color
 
             _starColor = new Color(128 + _rng.Next(0,129), 128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129));                   //this is a "relatively" easy way to create random colors
             _starScale = _rng.Next(50, 100) / 200f; //this will affect the size of the stars
@@ -70,9 +71,16 @@ namespace GME1003GoblinDanceParty
                 _starsT.Add(_rng.Next(25, 101)/100f);       //star transparency
             }
 
+            //list of star scale values
             for (int i = 0; i < _numStars; i++)
             {
                 _starsS.Add(_rng.Next(50, 100) / 200f); //star scale
+            }
+
+            //list of star colors
+            for (int i = 0; i < _numStars; i++)
+            {
+                _starsC.Add(new Color(128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129))); //star color
             }
 
             //List of X coordinates
@@ -144,7 +152,7 @@ namespace GME1003GoblinDanceParty
                 _spriteBatch.Draw(_starSprite, 
                     new Vector2(_starsX[i], _starsY[i]),    //set the star position
                     null,                                   //ignore this
-                    _starColor * _starsT[i],         //set colour and transparency
+                    _starsC[i] * _starsT[i],         //set colour and transparency
                     _starsR[i],                          //set rotation
                     new Vector2(_starSprite.Width / 2, _starSprite.Height / 2), //ignore this
                     new Vector2(_starsS[i], _starsS[i]),    //set scale (same number 2x)
