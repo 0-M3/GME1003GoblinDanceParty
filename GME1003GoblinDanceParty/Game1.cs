@@ -16,7 +16,9 @@ namespace GME1003GoblinDanceParty
         private int _numStars;          //how many stars?
         private List<int> _starsX;      //list of star x-coordinates
         private List<int> _starsY;      //list of star y-coordinate
-        private List<float> _starsR;
+        private List<float> _starsR;    //list of star rotation values
+        private List<float> _starsT;    //list of star transparency values
+
 
         private Texture2D _starSprite;  //the sprite image for our star
 
@@ -45,16 +47,24 @@ namespace GME1003GoblinDanceParty
             _numStars = _rng.Next(50,300);              //this would be better as a random number between 100 and 300
             _starsX = new List<int>();  //stars X coordinate
             _starsY = new List<int>();  //stars Y coordinate
-            _starsR = new List<float>();
+            _starsR = new List<float>();   //stars rotation
+            _starsT = new List<float>();   //stars transparency
 
             _starColor = new Color(128 + _rng.Next(0,129), 128 + _rng.Next(0, 129), 128 + _rng.Next(0, 129));                   //this is a "relatively" easy way to create random colors
             _starScale = _rng.Next(50, 100) / 200f; //this will affect the size of the stars
             _starTransparency = _rng.Next(25, 101)/100f;   //star transparency
+
+            //list of star rotation values
             for (int i = 0; i < _numStars; i++)
             {
                 _starsR.Add(_rng.Next(0, 101) / 100f);       //star rotation
             }
 
+            //list of star transparency values
+            for (int i = 0; i < _numStars; i++)
+            {
+                _starsT.Add(_rng.Next(25, 101)/100f);       //star transparency
+            }
             //use a separate for loop for each list - for practice
             //List of X coordinates
             for (int i = 0; i < _numStars; i++) 
@@ -125,7 +135,7 @@ namespace GME1003GoblinDanceParty
                 _spriteBatch.Draw(_starSprite, 
                     new Vector2(_starsX[i], _starsY[i]),    //set the star position
                     null,                                   //ignore this
-                    _starColor * _starTransparency,         //set colour and transparency
+                    _starColor * _starsT[i],         //set colour and transparency
                     _starsR[i],                          //set rotation
                     new Vector2(_starSprite.Width / 2, _starSprite.Height / 2), //ignore this
                     new Vector2(_starScale, _starScale),    //set scale (same number 2x)
